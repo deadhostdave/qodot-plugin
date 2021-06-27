@@ -422,13 +422,16 @@ func build_entity_nodes() -> Array:
 				if entity_definition is QodotFGDSolidClass:
 					if entity_definition.spawn_type == QodotFGDSolidClass.SpawnType.MERGE_WORLDSPAWN:
 						entity_nodes.append(null)
+						node.queue_free()
 						continue
 					elif use_trenchbroom_group_hierarchy and entity_definition.spawn_type == QodotFGDSolidClass.SpawnType.GROUP:
 						should_add_child = false
 					if entity_definition.node_class != "":
+						node.queue_free()
 						node = ClassDB.instance(entity_definition.node_class)
 				elif entity_definition is QodotFGDPointClass:
 					if entity_definition.scene_file:
+						node.queue_free()
 						node = entity_definition.scene_file.instance(PackedScene.GEN_EDIT_STATE_INSTANCE)
 
 				if entity_definition.script_class:
